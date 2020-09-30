@@ -1,0 +1,19 @@
+﻿${PizzaConfig}
+<div class="main">
+    <ul class="pizza-cards">
+        ${Items}
+    </ul>
+</div>
+<div class="sidebar">
+    ${OrderContents}
+</div>
+
+<template id="Item">
+    <li onclick="${specialSelected}" style="background-image: url('${imageurl}')">
+        <div class="pizza-info">
+            <span class="title">${name}</span>
+            ${description}
+            <span class="price">${price}</span>
+        </div>
+    </li>
+</template>

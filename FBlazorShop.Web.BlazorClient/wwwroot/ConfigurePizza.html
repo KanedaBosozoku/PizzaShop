@@ -1,0 +1,33 @@
+﻿<div class="dialog-container">
+    <div class="dialog">
+        <div class="dialog-title">
+            <h2>${SpecialName}</h2>
+            ${SpecialDescription}
+        </div>
+        <form class="dialog-body">
+            ${ToppingCombo}
+            ${ToppingItems}
+            <div>
+                <label>Size:</label>
+                <input type="range" min="${MinimumSize}" max="${MaximumSize}" step="1" bind-oninput="${SizeN}" />
+                <span class="size-label">
+                    ${Size}" (£${FormattedTotalPrice})
+                </span>
+            </div>
+        </form>
+        <div class="dialog-buttons">
+            <button id="cancelButton" class="btn btn-secondary mr-auto"  onclick="${Cancel}">Cancel</button>
+            <span class="mr-center">
+                Price: <span class="price">${FormattedTotalPrice}</span>
+            </span>
+            <button id="confirmButton" class="btn btn-success ml-auto" onclick="${Confirm}">Order ></button>
+        </div>
+    </div>
+</div>
+<template id="ToppingItem">
+    <div class="topping">
+        ${Name}
+        <span class="topping-price">${FormattedPrice}</span>
+        <button type="button" class="delete-topping" onclick="${RemoveTopping}">x</button>
+    </div>
+</template>

@@ -1,0 +1,98 @@
+﻿@page "/"
+@namespace FBlazorShop.Web
+@using FBlazorShop.Web.BlazorClient
+@using Bolero.Server.RazorHost
+@inject IBoleroHostConfig BoleroHostConfig
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FBlazorShop</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="_content/FBlazorShop.Web.BlazorClient/css/site.css" rel="stylesheet" />
+    <link href="_content/FBlazorShop.ComponentsLibrary/leaflet/leaflet.css" rel="stylesheet" />
+    <style>
+        #blazor-error-ui {
+            background: lightyellow;
+            bottom: 0;
+            box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+            display: none;
+            left: 0;
+            padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+            #blazor-error-ui .dismiss {
+                cursor: pointer;
+                position: absolute;
+                right: 0.75rem;
+                top: 0.5rem;
+            }
+    </style>
+</head>
+<body>
+    <script>
+        window.generalFunctions = {
+            onkeyUp: function (event) {
+                if (event.key == "Escape") document.getElementById("cancelButton").click();
+                else if (event.key == "Enter") document.getElementById("confirmButton").click();
+            },
+            registerForOnKeyUp: function () {
+                document.addEventListener("keyup", this.onkeyUp)
+            },
+            removeOnKeyUp: function () {
+                document.removeEventListener("keyup", this.onkeyUp);
+            }
+
+        };
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; samesite=lax; secure; path=/";
+        }
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+        function eraseCookie(name) {
+            document.cookie = name + '=; Max-Age=-99999999;';
+        }
+    </script>
+    @{
+    var specials = Seed.specials.ToArray();
+    }
+    <app>
+        @(await Html.RenderComponentAsync<Main.MyApp>(BoleroHostConfig))
+    </app>
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    @Html.RenderBoleroScript(BoleroHostConfig)
+    <script src="_content/FBlazorShop.ComponentsLibrary/localStorage.js"></script>
+    <script src="_content/FBlazorShop.ComponentsLibrary/pushNotifications.js"></script>
+    <script src="_content/FBlazorShop.ComponentsLibrary/deliveryMap.js"></script>
+    <script src="_content/FBlazorShop.ComponentsLibrary/leaflet/leaflet.js"></script>
+
+</body>
+</html>

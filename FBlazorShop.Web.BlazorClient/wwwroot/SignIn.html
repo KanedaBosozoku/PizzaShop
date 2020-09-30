@@ -1,0 +1,18 @@
+﻿
+<div class="dialog-container">
+    <div class="dialog">
+        <div class="dialog-title">
+            <h2>Sign In</h2>
+        </div>
+
+        <form class="dialog-body">
+            ${FormItems}
+            <div class="validation-message">&nbsp; ${LoginError}</div>
+        </form>
+
+        <div class="dialog-buttons">
+            <button id="cancelButton" class="btn btn-secondary mr-auto" onclick="${Cancel}">Cancel</button>
+            <button id="confirmButton" class="btn btn-success ml-auto" onclick="${Submit}">Sign in ></button>
+        </div>
+    </div>
+</div>
